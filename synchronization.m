@@ -4,17 +4,16 @@
  %To be replaced by the recorder signal
  %[ x, fs] = audioread(file); 
    [ x, fs] = audioread('output.wav'); 
-     
    %frequencies
    StartFreq = 18000;
    TimeFreq = 0.06;
-   TimeStartFreq1 = fs * 3 * 0.06;
+   %TimeStartFreq1 = fs * 3 * 0.06;
  
 
    %create the signal wanted for synchronization
    TimeStartFreq = 3*TimeFreq; %duration in seconds
-   n = fs * TimeStartFreq; %number of samples
-   s = (1:n) / fs; %sound data preparation
+   SamplesByFrequency = fs * TimeStartFreq; %number of samples
+   s = (1:SamplesByFrequency) / fs; %sound data preparation
    sig_synchro = sin(2 * pi * StartFreq * s);
    lenghtRecordedSignal = length(x);
    
@@ -32,10 +31,10 @@
   delay_begin =  delay_begin - floor(lengthCorrelationSignal/2);
   
   %create the signal to analyse
-  signal = zeros(lenghtRecordedSignal-delay_begin-TimeStartFreq1,1);
+  signal = zeros(lenghtRecordedSignal-delay_begin-SamplesByFrequency,1);
 
-  for i = 1:(lenghtRecordedSignal-delay_begin-TimeStartFreq1)
-    signal(i,1) = x(i+delay_begin+TimeStartFreq1,1);
+  for i = 1:(lenghtRecordedSignal-delay_begin-SamplesByFrequency)
+    signal(i,1) = x(i+delay_begin+SamplesByFrequency,1);
   end
     
 end

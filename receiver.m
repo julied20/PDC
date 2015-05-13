@@ -14,7 +14,9 @@ function receiver()
 %   recordblocking(OutputSound, 10);
 %   %Store recorded audio signal in numeric array
 %   myRecording = getaudiodata(OutputSound);
-%   audiowrite(myRecording, FS, N_BITS, result);
+%   audiowrite(result, myRecording, FS);  
+
+
 
 %conversion(result);
 conversion();
