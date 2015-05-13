@@ -1,43 +1,42 @@
-function createSound() %createSound(message)
+function soundOutput = createSound() %createSound(message)
 
-FREQ1 = 'FREQ1.wav';
-FREQ0 = 'FREQ0.wav';
-FREQStart = 'FREQStart.wav';
-FREQBip = 'FREQBip.wav';
+Freq1 = '16000.wav';
+Freq0 = '16150.wav';
+FreqStart = '18000.wav';
+%FREQBip = '20000.wav';
 
 FS = 44100;
 
 Output = 'output.wav';
 
-f1 = audioread(FREQ1);
-f0 = audioread(FREQ0);
-fStart = audioread(FREQStart);
-fBip = audioread(FREQBip);
-fEnd = audioread(FREQStart);
-
-%To remove after linking files%
-FileID = fopen('test.txt');
-%str = '0.41 8.24 3.57 6.24 9.27';
-%data = textscan(str,'%f');
-data = textscan(FileID, '%1d');
-fclose(FileID);
-%
-
-sound = [fStart;fBip]; %synchronisation frequency
+f1 = audioread(Freq1);
+f0 = audioread(Freq0);
+fStart = audioread(FreqStart);
+%fBip = audioread(FREQBip);
+fEnd = audioread(FreqStart);
 
 
+data = extractor();
+
+data = cell2mat(data);
+
+
+soundOutput = [fStart;fStart;fStart]; %synchronisation frequency 3 times
+
+%Read the file and add each frequency to the output file
 for i = 1:length(data)-1
    bit = data(i);
    switch bit
-       case '0', sound = [sound; f0];
-       case '1', sound = [sound; f1];
+       case 0, soundOutput = [soundOutput; f0];
+       case 1, soundOutput = [soundOutput; f1];
    end
 end
 
-sound = [sound; fEnd];
+soundOutput = [soundOutput; fEnd; fEnd; fEnd];%We add 3 times the EndFreq
 
-audiowrite(Output,sound,FS);
+audiowrite(Output,soundOutput,FS);
 
+sound(soundOutput, FS);
 end
 
 
