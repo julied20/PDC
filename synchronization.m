@@ -12,9 +12,9 @@
 
    %create the signal wanted for synchronization
    TimeStartFreq = 3*TimeFreq; %duration in seconds
-   SamplesByFrequency = fs * TimeStartFreq; %number of samples
-   s = (1:SamplesByFrequency) / fs; %sound data preparation
-   sig_synchro = sin(2 * pi * StartFreq * s);
+   NumberOfSample = fs * TimeStartFreq; %number of samples
+   s = (1:NumberOfSample) / fs; %sound data preparation
+   signalOfSynchro = sin(2 * pi * StartFreq * s);
    lenghtRecordedSignal = length(x);
    
 %   %correlation between the signals
@@ -23,18 +23,20 @@
 %   %copies of y as a function of the lag. If x and y have different lengths,
 %   %the function appends zeros at the end of the shorter vector so it has 
 %   %the same length, N, as the other.
-   c_begin = xcorr(x,sig_synchro);
+   c_begin = xcorr(x,signalOfSynchro);
 
 
   lengthCorrelationSignal = length(c_begin);
+  %We need the most similar 
   [~,delay_begin] = max(c_begin);
+  %Why?????
   delay_begin =  delay_begin - floor(lengthCorrelationSignal/2);
   
-  %create the signal to analyse
-  signal = zeros(lenghtRecordedSignal-delay_begin-SamplesByFrequency,1);
+  %Initialize the signal to analyse
+  signal = zeros(lenghtRecordedSignal-delay_begin-NumberOfSample,1);
 
-  for i = 1:(lenghtRecordedSignal-delay_begin-SamplesByFrequency)
-    signal(i,1) = x(i+delay_begin+SamplesByFrequency,1);
+  for i = 1:(lenghtRecordedSignal-delay_begin-NumberOfSample)
+    signal(i,1) = x(i+delay_begin+NumberOfSample,1);
   end
     
 end
