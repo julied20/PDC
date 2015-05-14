@@ -1,16 +1,16 @@
 %function frequencies = analyzation(file)
 
 function frequencies = analyzation()
-  
-  %frequency
-  Freq1 = 16000;
-  Freq0 = 16150;
-  FreqEnd = 18000;  
-  
-  FS = 44100;
-  
-  %time
-  TimeFreq = 0.06;
+
+%frequencies
+Freq1 = 16000;
+Freq0 = 16150;
+FreqEnd = 18000;
+
+FS = 44100;
+
+%time
+TimeFreq = 0.06;
 
 %Change once we use 2 computers
 %x = synchronization(file);
@@ -36,11 +36,11 @@ end
 
 %Matrix containing the fft of Each Sample
 FourierMatrix = zeros(NumberOfSamplesByFrequency, NumberOfFrequencies);
- 
+
 for i = 1:NumberOfFrequencies
     % fftshift : Shift zero-frequency component to center of spectrum
     FourierMatrix(:,i) = fftshift(fft(SampleMatrix(:,i)));
-
+    
 end
 
 
@@ -55,22 +55,35 @@ NumberOfFreqEnd = FreqEnd*TimeFreq;
 
 %As it's symmetric, we can take the half and add the number of samples
 %We take the absolute because it can have negative values
-for j = 1:NumberOfFrequencies
+for j = 1:6:NumberOfFrequencies-6
+    nb1 = 0;
+    nb0 = 0;
     
-    v_a = abs(FourierMatrix(halfNumberOfSamplesByFrequency + NumberOfFreq1 + 1 ,j));
-    v_b = abs(FourierMatrix(halfNumberOfSamplesByFrequency + NumberOfFreq0 + 1 ,j));
-    v_end = abs(FourierMatrix(halfNumberOfSamplesByFrequency + NumberOfFreqEnd + 1,j));
+    for i = 1:6
+        v_a = abs(FourierMatrix(halfNumberOfSamplesByFrequency + NumberOfFreq1 + 1 ,j));
+        v_b = abs(FourierMatrix(halfNumberOfSamplesByFrequency + NumberOfFreq0 + 1 ,j));
+        v_end = abs(FourierMatrix(halfNumberOfSamplesByFrequency + NumberOfFreqEnd + 1,j));
+        
+        maximum = max([v_a, v_b, v_end]);
+        if maximum == v_a
+            nb1 = nb1 + 1;
+            % frequencies(j,1) = Freq1;
+        elseif maximum == v_b
+            nb0 = nb0 +1;
+            %frequencies(j,1) = Freq0;
+        else
+            break;
+        end
+    end
     
-maximum = max([v_a, v_b, v_end]);
-    if maximum == v_a
+    if nb1 >= nb0
         frequencies(j,1) = Freq1;
-    elseif maximum == v_b
+    elseif nb1 < nb0
         frequencies(j,1) = Freq0;
     else
         break;
-    
     end
 end
 
-   
+
 end
