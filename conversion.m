@@ -11,7 +11,8 @@ freq = analyzation();
 
 result = fopen('result.txt', 'w');
 
-for i = 1:length(freq)
+%We remove the frequency we add in createSound
+for i = 1:length(freq)-1
     a = freq(i);
     switch a
         case Freq1

@@ -32,6 +32,8 @@ for i = 1:length(data)-1
    end
 end
 
+%We add a Frequency to avoid the lost of information during the Analization
+soundOutput = [soundOutput; f0];
 soundOutput = [soundOutput; fEnd; fEnd; fEnd];%We add 3 times the EndFreq
 
 audiowrite(Output,soundOutput,FS);
