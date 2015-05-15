@@ -27,13 +27,13 @@ soundOutput = [fStart;fStart;fStart]; %synchronisation frequency 3 times
 for i = 1:length(data)-1
    bit = data(i);
    switch bit
-       case 0, soundOutput = [soundOutput; f0; f0; f0; f0; f0; f0];
-       case 1, soundOutput = [soundOutput; f1; f1; f1; f1; f1; f1];
+       case 0, soundOutput = [soundOutput; f0; f0; f0];
+       case 1, soundOutput = [soundOutput; f1; f1; f1];
    end
 end
 
 %We add a Frequency to avoid the lost of information during the Analization
-soundOutput = [soundOutput; f0; f0; f0; f0; f0; f0];
+soundOutput = [soundOutput; f0; f0; f0];
 soundOutput = [soundOutput; fEnd; fEnd; fEnd];%We add 3 times the EndFreq
 
 audiowrite(Output,soundOutput,FS);

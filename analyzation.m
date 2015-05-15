@@ -55,11 +55,11 @@ NumberOfFreqEnd = FreqEnd*TimeFreq;
 
 %As it's symmetric, we can take the half and add the number of samples
 %We take the absolute because it can have negative values
-for j = 1:6:NumberOfFrequencies-6
+for j = 1:3:NumberOfFrequencies-3
     nb1 = 0;
     nb0 = 0;
     
-    for i = 1:6
+    for i = 1:3
         v_a = abs(FourierMatrix(halfNumberOfSamplesByFrequency + NumberOfFreq1 + 1 ,j));
         v_b = abs(FourierMatrix(halfNumberOfSamplesByFrequency + NumberOfFreq0 + 1 ,j));
         v_end = abs(FourierMatrix(halfNumberOfSamplesByFrequency + NumberOfFreqEnd + 1,j));
