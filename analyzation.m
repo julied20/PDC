@@ -58,6 +58,7 @@ NumberOfFreqEnd = FreqEnd*TimeFreq;
 for j = 1:3:NumberOfFrequencies-3
     nb1 = 0;
     nb0 = 0;
+    nbend = 0;
     
     for i = 1:3
         v_a = abs(FourierMatrix(halfNumberOfSamplesByFrequency + NumberOfFreq1 + 1 ,j));
@@ -71,18 +72,25 @@ for j = 1:3:NumberOfFrequencies-3
         elseif maximum == v_b
             nb0 = nb0 +1;
             %frequencies(j,1) = Freq0;
+        elseif maximun == v_end
+            nbend = nbend + 1;
         else
+            fprintf('coucou');
             break;
         end
     end
     
-    if nb1 >= nb0
-        frequencies(j,1) = Freq1;
-    elseif nb1 < nb0
-        frequencies(j,1) = Freq0;
-    else
-        break;
-    end
+    maximum = max([nb1, nb0, nbend]);
+        if maximum == nb1
+            frequencies(j,1) = Freq1;
+        elseif maximum == nb0
+            fprintf('c est un zero');
+            frequencies(j,1) = Freq0;
+        elseif maximun == nbend
+            break;
+        else
+            fprintf('ereur');
+        end
 end
 
 

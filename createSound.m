@@ -3,6 +3,7 @@ function soundOutput = createSound() %createSound(message)
 Freq1 = '16000.wav';
 Freq0 = '16150.wav';
 FreqStart = '18000.wav';
+Freqtest = '14000.wav';
 %FREQBip = '20000.wav';
 
 FS = 44100;
@@ -14,6 +15,7 @@ f0 = audioread(Freq0);
 fStart = audioread(FreqStart);
 %fBip = audioread(FREQBip);
 fEnd = audioread(FreqStart);
+fTest = audioread(Freqtest);
 
 
 data = extractor();
@@ -33,7 +35,7 @@ for i = 1:length(data)-1
 end
 
 %We add a Frequency to avoid the lost of information during the Analization
-soundOutput = [soundOutput; f0; f0; f0];
+soundOutput = [soundOutput; fTest; fTest; fTest];
 soundOutput = [soundOutput; fEnd; fEnd; fEnd];%We add 3 times the EndFreq
 
 audiowrite(Output,soundOutput,FS);

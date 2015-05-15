@@ -1,5 +1,5 @@
- %function[signal] = synchronization(file)
- function [signal] = synchronization()
+%function[signal] = synchronization(file)
+function [signal] = synchronization()
  
  %To be replaced by the recorder signal
  %[ x, fs] = audioread(file); 
@@ -17,12 +17,12 @@
    signalOfSynchro = sin(2 * pi * StartFreq * s);
    lenghtRecordedSignal = length(x);
    
-%   %correlation between the signals
-%   %returns the cross-correlation of two discrete-time sequences, x and y. 
-%   %Cross-correlation measures the similarity between x and shifted (lagged)
-%   %copies of y as a function of the lag. If x and y have different lengths,
-%   %the function appends zeros at the end of the shorter vector so it has 
-%   %the same length, N, as the other.
+  %correlation between the signals
+  %returns the cross-correlation of two discrete-time sequences, x and y. 
+  %Cross-correlation measures the similarity between x and shifted (lagged)
+  %copies of y as a function of the lag. If x and y have different lengths,
+  %the function appends zeros at the end of the shorter vector so it has 
+  %the same length, N, as the other.
    c_begin = xcorr(x,signalOfSynchro);
 
 
