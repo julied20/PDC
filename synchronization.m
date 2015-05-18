@@ -7,15 +7,14 @@ function [signal] = synchronization()
    %frequencies
    StartFreq = 18000;
    TimeFreq = 0.06;
-   %TimeStartFreq1 = fs * 3 * 0.06;
  
 
    %create the signal wanted for synchronization
    TimeStartFreq = 3*TimeFreq; %duration in seconds
-   NumberOfSample = fs * TimeStartFreq; %number of samples
+   NumberOfSample = fs * TimeStartFreq %number of samples
    s = (1:NumberOfSample) / fs; %sound data preparation
    signalOfSynchro = sin(2 * pi * StartFreq * s);
-   lenghtRecordedSignal = length(x);
+   lenghtRecordedSignal = length(x)
    
   %correlation between the signals
   %returns the cross-correlation of two discrete-time sequences, x and y. 
@@ -28,15 +27,16 @@ function [signal] = synchronization()
 
   lengthCorrelationSignal = length(c_begin);
   %We need the most similar 
-  [~,delay_begin] = max(c_begin);
+  [~,delay] = max(c_begin);
   %Why?????
-  delay_begin =  delay_begin - floor(lengthCorrelationSignal/2);
+  delay =  delay - floor(lengthCorrelationSignal/2)
   
+  data = lenghtRecordedSignal-delay-NumberOfSample
   %Initialize the signal to analyse
-  signal = zeros(lenghtRecordedSignal-delay_begin-NumberOfSample,1);
+  signal = zeros(lenghtRecordedSignal-delay-NumberOfSample,1);
 
-  for i = 1:(lenghtRecordedSignal-delay_begin-NumberOfSample)
-    signal(i,1) = x(i+delay_begin+NumberOfSample,1);
+  for i = 1:(lenghtRecordedSignal-delay-NumberOfSample)
+    signal(i,1) = x(i+delay+NumberOfSample,1);
   end
     
 end

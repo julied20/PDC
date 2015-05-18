@@ -20,5 +20,6 @@ function receiver()
 
 %conversion(result);
 conversion();
+bits_to_text();
 
 end
