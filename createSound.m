@@ -1,10 +1,10 @@
 function soundOutput = createSound() %createSound(message)
 %function createSound() %createSound(message)
 
-Freq11 = '16000.wav';
-Freq00 = '16150.wav';
-Freq10 = '17000.wav';
-Freq01 = '17150.wav';
+Freq11 = '9000.wav';
+Freq00 = '10000.wav';
+Freq10 = '11000.wav';
+Freq01 = '12000.wav';
 FreqStart = '18000.wav';
 Freqtest = '14000.wav';
 %FREQBip = '20000.wav';

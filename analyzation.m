@@ -63,6 +63,7 @@ NumberOfFreq10=Freq10*TimeFreq;
 NumberOfFreq01=Freq01*TimeFreq;
 NumberOfFreqEnd = FreqEnd*TimeFreq;
 
+frequencies = [];
 %As it's symmetric, we can take the half and add the number of samples
 %We take the absolute because it can have negative values
 %As we have sent 3 times each frequencies, we need to cover the Matrix 3 by
@@ -101,13 +102,17 @@ for j = 1:3:NumberOfFrequencies-2
     %We choose which frequency
     maximum = max([nb11, nb00, nb10, nb01, nbend]);
     if maximum == nb11
-        frequencies((j-1)/3 + 1,1) = Freq11;
+        frequencies = [frequencies; Freq11];
+        %frequencies((j-1)/3 + 1,1) = Freq11;
     elseif maximum == nb00
-        frequencies((j-1)/3 + 1,1) = Freq00;
+        frequencies = [frequencies; Freq00];
+        %frequencies((j-1)/3 + 1,1) = Freq00;
     elseif maximum == nb10
-        frequencies((j-1)/3 + 1,1) = Freq10;
+        frequencies = [frequencies; Freq10];
+        %frequencies((j-1)/3 + 1,1) = Freq10;
     elseif maximum == nb01
-        frequencies((j-1)/3 + 1,1) = Freq01;
+        frequencies = [frequencies; Freq01];
+        %frequencies((j-1)/3 + 1,1) = Freq01;
     elseif maximum == nbend
         break;
     else

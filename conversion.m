@@ -8,7 +8,7 @@ Freq01 = 17150;
 
 %analyze the frequencies
 %freq = analyzation(file);
-freq = analyzation();
+freq = analyzation()
 
 result = fopen('resultbits.txt', 'w');
 

@@ -5,11 +5,11 @@ function bits_to_text()
 
 
     FileID = fopen('resultbits.txt');
-    data = fscanf(FileID, '%s');
+    data = fscanf(FileID, '%s')
     fclose(FileID);
     
     if(mod(size(data),7) ~= 0 )
-       data = data( 1,end -1); 
+       data = data(1:end-1)
     end
     
     %data = char(data);
