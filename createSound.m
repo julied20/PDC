@@ -33,10 +33,10 @@ for i = 1:length(data)
     %tz=data(i+1)
    bit = strcat(data(i,1), data(i,2))
    switch bit
-       case '00', soundOutput = [soundOutput; f00; f00; f00];
-       case '11', soundOutput = [soundOutput; f11; f11; f11];
-       case '10', soundOutput = [soundOutput; f10; f10; f10];
-       case '01', soundOutput = [soundOutput; f01; f01; f01];    
+       case '00', soundOutput = [soundOutput; f00; f00; f00; f00; f00];
+       case '11', soundOutput = [soundOutput; f11; f11; f11; f11; f11];
+       case '10', soundOutput = [soundOutput; f10; f10; f10; f10; f10];
+       case '01', soundOutput = [soundOutput; f01; f01; f01; f01; f01];    
    end
 end
 

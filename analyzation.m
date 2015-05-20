@@ -1,6 +1,6 @@
-%function frequencies = analyzation(file)
+function frequencies = analyzation(file)
 
-function frequencies = analyzation()
+%function frequencies = analyzation()
 
 %frequencies we need to recover
 Freq11 = 16000;
@@ -16,8 +16,8 @@ FS = 44100;
 TimeFreq = 0.06;
 
 %Change once we use 2 computers
-%x = synchronization(file);
-x = synchronization();
+x = synchronization(file);
+%x = synchronization();
 
 
 %Number of samples in our signal
@@ -28,8 +28,8 @@ NumberOfSamplesByFrequency = TimeFreq*FS;
 
 %Doit trouver un autre nom: Nombre d'elements a analyser
 NumberOfFrequencies = floor( NumberOfSamples/NumberOfSamplesByFrequency);
-if ( mod(NumberOfFrequencies,3) ~= 0)
-    NumberOfFrequencies = NumberOfFrequencies - (3 + mod(NumberOfFrequencies,3));
+if ( mod(NumberOfFrequencies,5) ~= 0)
+    NumberOfFrequencies = NumberOfFrequencies - (5 + mod(NumberOfFrequencies,5));
 end
 halfNumberOfSamplesByFrequency = NumberOfSamplesByFrequency/2;
 
@@ -51,11 +51,6 @@ for i = 1:NumberOfFrequencies
     
 end
 
-
-
-%Initialization of the result
-%frequencies = zeros((NumberOfFrequencies)/3 - 1,1);
-
 %Number of time an event occurs during one period
 NumberOfFreq11=Freq11*TimeFreq;
 NumberOfFreq00=Freq00*TimeFreq;
@@ -69,14 +64,14 @@ frequencies = [];
 %As we have sent 3 times each frequencies, we need to cover the Matrix 3 by
 % 3. Then for each triplet, we look at the number of time each frequency
 % appeared, and we choose the one with the maximum number of appearance.
-for j = 1:3:NumberOfFrequencies-2
+for j = 1:5:NumberOfFrequencies-4
     nb11 = 0;
     nb00 = 0;
     nb01 = 0;
     nb10 = 0;
     nbend = 0;
     
-    for i = j:j+2
+    for i = j:j+4
         v_a = abs(FourierMatrix(halfNumberOfSamplesByFrequency + NumberOfFreq11 + 1 ,i));
         v_b = abs(FourierMatrix(halfNumberOfSamplesByFrequency + NumberOfFreq00 + 1 ,i));
         v_c = abs(FourierMatrix(halfNumberOfSamplesByFrequency + NumberOfFreq10 + 1 ,i));
@@ -103,16 +98,12 @@ for j = 1:3:NumberOfFrequencies-2
     maximum = max([nb11, nb00, nb10, nb01, nbend]);
     if maximum == nb11
         frequencies = [frequencies; Freq11];
-        %frequencies((j-1)/3 + 1,1) = Freq11;
     elseif maximum == nb00
         frequencies = [frequencies; Freq00];
-        %frequencies((j-1)/3 + 1,1) = Freq00;
     elseif maximum == nb10
         frequencies = [frequencies; Freq10];
-        %frequencies((j-1)/3 + 1,1) = Freq10;
     elseif maximum == nb01
         frequencies = [frequencies; Freq01];
-        %frequencies((j-1)/3 + 1,1) = Freq01;
     elseif maximum == nbend
         break;
     else

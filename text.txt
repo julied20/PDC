@@ -1,1 +1,1 @@
-Je commence vraiment a en avoir marre de ce projet, c est du gros caca, vraiment du gros caca mais bon on a pas le choix de faire ca, avec matlab en plus!!!
+Bon cettefois j'envoie 5 fois le signal pour reduire la possibilite d'erreur, on va voir ce que ca donne avec ce texte, c'est difficile d'avoir de l'imagination

@@ -1,9 +1,9 @@
-%function[signal] = synchronization(file)
-function [signal] = synchronization()
+function[signal] = synchronization(file)
+%function [signal] = synchronization()
  
  %To be replaced by the recorder signal
- %[ x, fs] = audioread(file); 
-   [ x, fs] = audioread('output.wav'); 
+ [ x, fs] = audioread(file); 
+ %  [ x, fs] = audioread('output.wav'); 
    %frequencies
    StartFreq = 18000;
    TimeFreq = 0.06;
