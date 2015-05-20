@@ -3,10 +3,10 @@ function frequencies = analyzation(file)
 %function frequencies = analyzation()
 
 %frequencies we need to recover
-Freq11 = 16000;
-Freq00 = 16150;
-Freq10 = 17000;
-Freq01 = 17650;
+Freq11 = 9000;
+Freq00 = 10000;
+Freq10 = 11000;
+Freq01 = 12000;
 FreqEnd = 18000;
 
 %sampling frequency

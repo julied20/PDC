@@ -1,10 +1,10 @@
 function conversion (file)
 %function conversion ()
 
-Freq11 = 16000;
-Freq00 = 16150;
-Freq10 = 17000;
-Freq01 = 17150;
+Freq11 = 9000;
+Freq00 = 10000;
+Freq10 = 11000;
+Freq01 = 12000;
 
 %analyze the frequencies
 freq = analyzation(file);
