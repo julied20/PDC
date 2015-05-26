@@ -1,6 +1,5 @@
 function frequencies = analyzation(file)
 
-%function frequencies = analyzation()
 
 %frequencies we need to recover
 Freq11 = 9000;
@@ -15,9 +14,7 @@ FS = 44100;
 %Duration of each frequencies
 TimeFreq = 0.06;
 
-%Change once we use 2 computers
 x = synchronization(file);
-%x = synchronization();
 
 
 %Number of samples in our signal
@@ -27,15 +24,19 @@ NumberOfSamplesByFrequency = TimeFreq*FS;
 
 
 %Doit trouver un autre nom: Nombre d'elements a analyser
-NumberOfFrequencies = floor( NumberOfSamples/NumberOfSamplesByFrequency);
-if ( mod(NumberOfFrequencies,5) ~= 0)
-    NumberOfFrequencies = NumberOfFrequencies - (5 + mod(NumberOfFrequencies,5));
+NumberOfSampleByNote = floor( NumberOfSamples/NumberOfSamplesByFrequency);
+if ( mod(NumberOfSampleByNote,5) ~= 0)
+    NumberOfSampleByNote = NumberOfSampleByNote - (5 + mod(NumberOfSampleByNote,5));
 end
 halfNumberOfSamplesByFrequency = NumberOfSamplesByFrequency/2;
 
 %Matrix containing each Sample
-SampleMatrix = zeros(NumberOfSamplesByFrequency, NumberOfFrequencies);
-for i = 1:NumberOfFrequencies
+%We take the samples for the first note and we put them 
+%Tu prend les premiers X nombres de samples (qui repr?sentes 1 note) 
+%et tu les fous dans la premi?re ligne de A
+%Ensuite tu prends les suivant X samples et tu les fous dans la 2?me ligne
+SampleMatrix = zeros(NumberOfSamplesByFrequency, NumberOfSampleByNote);
+for i = 1:NumberOfSampleByNote
     for j = 1:NumberOfSamplesByFrequency
         SampleMatrix(j,i) = x(j+(i-1)*NumberOfSamplesByFrequency,1);
     end
@@ -43,9 +44,9 @@ end
 
 
 %Matrix containing the fft of Each Sample
-FourierMatrix = zeros(NumberOfSamplesByFrequency, NumberOfFrequencies);
+FourierMatrix = zeros(NumberOfSamplesByFrequency, NumberOfSampleByNote);
 
-for i = 1:NumberOfFrequencies
+for i = 1:NumberOfSampleByNote
     % fftshift : Shift zero-frequency component to center of spectrum
     FourierMatrix(:,i) = fftshift(fft(SampleMatrix(:,i)));
     
@@ -64,7 +65,7 @@ frequencies = [];
 %As we have sent 3 times each frequencies, we need to cover the Matrix 3 by
 % 3. Then for each triplet, we look at the number of time each frequency
 % appeared, and we choose the one with the maximum number of appearance.
-for j = 1:5:NumberOfFrequencies-4
+for j = 1:5:NumberOfSampleByNote-4
     nb11 = 0;
     nb00 = 0;
     nb01 = 0;
@@ -72,6 +73,7 @@ for j = 1:5:NumberOfFrequencies-4
     nbend = 0;
     
     for i = j:j+4
+        %We look for each frequencies the power of the signal.
         v_a = abs(FourierMatrix(halfNumberOfSamplesByFrequency + NumberOfFreq11 + 1 ,i));
         v_b = abs(FourierMatrix(halfNumberOfSamplesByFrequency + NumberOfFreq00 + 1 ,i));
         v_c = abs(FourierMatrix(halfNumberOfSamplesByFrequency + NumberOfFreq10 + 1 ,i));

@@ -1,1 +1,1 @@
-Bon cettefois j'envoie 5 fois le signal pour reduire la possibilite d'erreur, on va voir ce que ca donne avec ce texte, c'est difficile d'avoir de l'imagination
+There are 10 types of people in this world; Those who understand binary and those who don't!

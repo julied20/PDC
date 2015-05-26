@@ -11,10 +11,10 @@ function[signal] = synchronization(file)
 
    %create the signal wanted for synchronization
    TimeStartFreq = 3*TimeFreq; %duration in seconds
-   NumberOfSample = fs * TimeStartFreq %number of samples
+   NumberOfSample = fs * TimeStartFreq; %number of samples
    s = (1:NumberOfSample) / fs; %sound data preparation
    signalOfSynchro = sin(2 * pi * StartFreq * s);
-   lenghtRecordedSignal = length(x)
+   lenghtRecordedSignal = length(x);
    
   %correlation between the signals
   %returns the cross-correlation of two discrete-time sequences, x and y. 
@@ -28,11 +28,12 @@ function[signal] = synchronization(file)
   lengthCorrelationSignal = length(c_begin);
   %We need the most similar 
   [~,delay] = max(c_begin);
-  %Why?????
-  delay =  delay - floor(lengthCorrelationSignal/2)
   
-  data = lenghtRecordedSignal-delay-NumberOfSample
+  delay =  delay - floor(lengthCorrelationSignal/2);
+  
+  data = lenghtRecordedSignal-delay-NumberOfSample;
   %Initialize the signal to analyse
+  %We shift the signal to remove the synchronization Frequency
   signal = zeros(lenghtRecordedSignal-delay-NumberOfSample,1);
 
   for i = 1:(lenghtRecordedSignal-delay-NumberOfSample)
